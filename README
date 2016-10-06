@@ -45,14 +45,18 @@ JAX-RS version as 1.1 or 2.0. Based on this selection, web.xml file must be modi
 			<version>1.19.1</version>
 		</dependency>
 
-7. After the above changes in project and coding, following command will deploy the war file on tomcat container. Make sure that tomcat server is
+7. To deloy the service on tomcat7, the "Server Locations" properties in the Tomcat server must be modified.
+   Double click on the tomcat server such that it will open the overview of configs.
+   By default "Use workspace metadata" will be enabled, but "Use Tomcat installation" should be selected.
+
+8. After the above changes in project and coding, following command will deploy the war file on tomcat container. Make sure that tomcat server is
 	running before executing the below deployment script
 
 		mvn clean install war:war tomcat7:redeploy
 		
-8.	To observe the REST calls,	http://localhost:8080/automator/rest
+9.	To observe the REST calls,	http://localhost:8080/automator/rest/start/android/mobile/all
 
-9. If ANDROID_HOME or any environment variable is not able to be fetched by eclipse, then verify whether terminal shell has proper values set.
+10. If ANDROID_HOME or any environment variable is not able to be fetched by eclipse, then verify whether terminal shell has proper values set.
    If yes, then close the currently running eclipse and start eclipse from the verified shell.
    
 References:
