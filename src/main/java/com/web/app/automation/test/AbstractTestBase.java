@@ -32,49 +32,46 @@ import io.appium.java_client.android.StartsActivity;
 
 public abstract class AbstractTestBase {
 
-    ControllerService cService;
-    AppiumDriver<WebElement> driver;
+	ControllerService cService;
+	AppiumDriver<WebElement> driver;
 
-    @BeforeSuite
-    public void startServer() {
-        try {
-            Logger.write("Starting appium server process", LogLevel.INFO);
-            AppiumServer appium = new AppiumServer();
-            Thread appiumServerThread = new Thread(appium);
-            appiumServerThread.start();
-            appiumServerThread.join();
-            driver = CoreController.getController();
-            Logger.write("Spawning thread to record test execution", LogLevel.INFO);
-            VideoWorkerThread recThread = new VideoWorkerThread(serviceType.RECORDING);
-            recThread.start();
+	@BeforeSuite
+	public void startServer() {
+		try {
+			Logger.write("Starting appium server process", LogLevel.INFO);
+			AppiumServer appium = new AppiumServer();
+			Thread appiumServerThread = new Thread(appium);
+			appiumServerThread.start();
+			appiumServerThread.join();
+			driver = CoreController.getController();
+			Logger.write("Spawning thread to record test execution", LogLevel.INFO);
+			VideoWorkerThread recThread = new VideoWorkerThread(serviceType.RECORDING);
+			recThread.start();
 
-            /*
-             * VideoWorkerThread strThread = new
-             * VideoWorkerThread(serviceType.STREAMING); strThread.start();
-             */
+			/*
+			 * VideoWorkerThread strThread = new
+			 * VideoWorkerThread(serviceType.STREAMING); strThread.start();
+			 */
 
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-    @AfterSuite
-    public void stopServer() {
-        try {
-            driver.quit();
-            AppiumServer.stop();
-            // AndroidController.getInstance().getProcessHandle().waitFor(1,
-            // TimeUnit.MINUTES);
-            // AndroidController.getInstance().getProcessHandle().destroy();
-            // VideoServiceImpl.getInstance().stopVideoRecorder();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public void testMethod() {
-        System.out.println(">>>>> Abstract class test method");
-    }
+	@AfterSuite
+	public void stopServer() {
+		try {
+			driver.quit();
+			AppiumServer.stop();
+			// AndroidController.getInstance().getProcessHandle().waitFor(1,
+			// TimeUnit.MINUTES);
+			// AndroidController.getInstance().getProcessHandle().destroy();
+			// VideoServiceImpl.getInstance().stopVideoRecorder();
+			Logger.write("Waiting on video services to close ...", LogLevel.INFO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
