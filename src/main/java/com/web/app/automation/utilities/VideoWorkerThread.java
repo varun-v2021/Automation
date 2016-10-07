@@ -1,7 +1,12 @@
 package com.web.app.automation.utilities;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,7 +89,9 @@ public class VideoWorkerThread extends Thread {
 
 	public Process startVideoStreaming() {
 		Logger.write("start streaming video ", LogLevel.INFO);
-		String command = "adb shell screenrecord --output-format=h264 - | ffplay -";
+		// String command = "sh echo `adb shell screenrecord
+		// --output-format=h264 - | ffplay -`";
+		String command = "sh " + Configuration.VIDEO_STREAMING_SCRIPT;
 		Process p = AndroidController.getInstance().getProcessHandle();
 		try {
 			p = Runtime.getRuntime().exec(command);

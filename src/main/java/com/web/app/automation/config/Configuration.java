@@ -8,6 +8,7 @@ public class Configuration {
 	public static String ANDROID_PROP_FILENAME = "/Users/VVenkatesh/Documents/workspace/AutomationService/properties/android.properties";
 	public static String IOS_PROP_FILENAME = "/Users/VVenkatesh/Documents/workspace/AutomationService/properties/ios.properties";
 	public static String VIDEO_OUTPUT_DIR = "/Users/VVenkatesh/current/Automation/videos/";
+	public static String VIDEO_STREAMING_SCRIPT = "/Users/VVenkatesh/current/Automation/scripts/videoRelay.sh";
 	PropertiesUtility propUtilObj = new PropertiesUtility();
 
 	public static String APP_NAME = "appName";

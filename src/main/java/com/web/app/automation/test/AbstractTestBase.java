@@ -48,10 +48,8 @@ public abstract class AbstractTestBase {
 			VideoWorkerThread recThread = new VideoWorkerThread(serviceType.RECORDING);
 			recThread.start();
 
-			/*
-			 * VideoWorkerThread strThread = new
-			 * VideoWorkerThread(serviceType.STREAMING); strThread.start();
-			 */
+			VideoWorkerThread strThread = new VideoWorkerThread(serviceType.STREAMING);
+			strThread.start();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
