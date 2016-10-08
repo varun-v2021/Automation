@@ -1,39 +1,24 @@
 package com.web.app.automation.test;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 
-import com.web.app.automation.config.Configuration;
-import com.web.app.automation.controller.AndroidController;
 import com.web.app.automation.controller.CoreController;
 import com.web.app.automation.interfaces.ControllerService;
 import com.web.app.automation.interfaces.VideoService.serviceType;
 import com.web.app.automation.log.LogLevel;
 import com.web.app.automation.log.Logger;
 import com.web.app.automation.server.AppiumServer;
-import com.web.app.automation.services.ControllerServiceImpl;
-import com.web.app.automation.services.VideoServiceImpl;
-import com.web.app.automation.utilities.PropertiesUtility;
 import com.web.app.automation.utilities.VideoWorkerThread;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.StartsActivity;
 
 public abstract class AbstractTestBase {
 
 	ControllerService cService;
 	AppiumDriver<WebElement> driver;
+	static Object lockObj = new Object();
 
 	@BeforeSuite
 	public void startServer() {
@@ -45,10 +30,11 @@ public abstract class AbstractTestBase {
 			appiumServerThread.join();
 			driver = CoreController.getController();
 			Logger.write("Spawning thread to record test execution", LogLevel.INFO);
-			VideoWorkerThread recThread = new VideoWorkerThread(serviceType.RECORDING);
-			recThread.start();
 
-			VideoWorkerThread strThread = new VideoWorkerThread(serviceType.STREAMING);
+			// Startup video services
+			VideoWorkerThread recThread = new VideoWorkerThread(serviceType.RECORDING, lockObj);
+			recThread.start();
+			VideoWorkerThread strThread = new VideoWorkerThread(serviceType.STREAMING, lockObj);
 			strThread.start();
 
 		} catch (Exception e) {
@@ -62,11 +48,9 @@ public abstract class AbstractTestBase {
 		try {
 			driver.quit();
 			AppiumServer.stop();
-			// AndroidController.getInstance().getProcessHandle().waitFor(1,
-			// TimeUnit.MINUTES);
-			// AndroidController.getInstance().getProcessHandle().destroy();
-			// VideoServiceImpl.getInstance().stopVideoRecorder();
-			Logger.write("Waiting on video services to close ...", LogLevel.INFO);
+			synchronized (lockObj) {
+				lockObj.notifyAll();
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

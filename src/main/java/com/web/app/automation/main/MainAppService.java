@@ -34,45 +34,49 @@ import io.appium.java_client.remote.MobileCapabilityType;
 @Path("/start")
 public class MainAppService {
 
-    private static void dumpVars(Map<String, ?> m) {
-        List<String> keys = new ArrayList<String>(m.keySet());
-        Collections.sort(keys);
-        for (String k : keys) {
-            System.out.println(k + " : " + m.get(k));
-        }
-    }
+	private static void dumpVars(Map<String, ?> m) {
+		List<String> keys = new ArrayList<String>(m.keySet());
+		Collections.sort(keys);
+		for (String k : keys) {
+			System.out.println(k + " : " + m.get(k));
+		}
+	}
 
-    @GET
-    @Path("/{platform}/{device}/{suite}")
-    public Response startServer(@PathParam("platform") String platform, @PathParam("device") String device,
-            @PathParam("suite") String suite) {
+	@GET
+	@Path("/{platform}/{device}/{suite}")
+	public Response startServer(@PathParam("platform") String platform, @PathParam("device") String device,
+			@PathParam("suite") String suite) {
 
-        String output = "Automation service [Jersey] - received: platform = " + platform + " device = " + device
-                + " suite = " + suite;
-        try {
-            Logger.write("\t===== ENV VARIABLES =====\t", LogLevel.INFO);
-            dumpVars(System.getenv());
+		String output = "Automation service [Jersey] - received: platform = " + platform + " device = " + device
+				+ " suite = " + suite;
+		try {
+			Logger.write("========================================== ", LogLevel.INFO);
+			Logger.write("Initiating session   ", LogLevel.INFO);
+			Logger.write("========================================== ", LogLevel.INFO);
+			Logger.write("\t Environment variables \t", LogLevel.INFO);
+			Logger.write("\t" + System.getenv() + "\t", LogLevel.INFO);
+			// dumpVars(System.getenv());
 
-            CoreController.setDevice(Utility.getDeviceType(device));
-            CoreController.setPlatform(Utility.getPlatformType(platform));
-            CoreController.setTestSuite(Utility.getTestsToExecute(suite));
+			CoreController.setDevice(Utility.getDeviceType(device));
+			CoreController.setPlatform(Utility.getPlatformType(platform));
+			CoreController.setTestSuite(Utility.getTestsToExecute(suite));
 
-            TestNGHandler testObj = new TestNGHandler();
-            Thread testNGThread = new Thread(testObj);
-            testNGThread.start();
+			TestNGHandler testObj = new TestNGHandler();
+			Thread testNGThread = new Thread(testObj);
+			testNGThread.start();
 
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-        return Response.status(200).entity(output).build();
-    }
+		return Response.status(200).entity(output).build();
+	}
 
-    @GET
-    @Path("/stop")
-    public Response stopServer(@PathParam("param") String msg) {
-        String output = "Automation service [Jersey] : " + msg;
-        return Response.status(200).entity(output).build();
-    }
+	@GET
+	@Path("/stop")
+	public Response stopServer(@PathParam("param") String msg) {
+		String output = "Automation service [Jersey] : " + msg;
+		return Response.status(200).entity(output).build();
+	}
 }

@@ -1,17 +1,14 @@
 package com.web.app.automation.test;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
+
 import com.web.app.automation.controller.CoreController;
 import com.web.app.automation.interfaces.EventListener;
 import com.web.app.automation.listeners.EventListenerImpl;
 import com.web.app.automation.log.LogLevel;
 import com.web.app.automation.log.Logger;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
 
 @Test(suiteName = "testSuite", groups = {
         "test1" }, /*
