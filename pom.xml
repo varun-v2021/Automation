@@ -62,6 +62,17 @@
 			<version>0.0.7s</version>
 			<!-- <scope>system</scope> <systemPath>/Users/VVenkatesh/.m2/repository/com/github/xsavikx/androidscreencast/0.0.7s/androidscreencast-0.0.7s.jar</systemPath> -->
 		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>4.1.1.4</version>
+			<!-- <scope>provided</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.robolectric</groupId>
+			<artifactId>android-all</artifactId>
+			<version>4.4_r1-robolectric-1</version>
+		</dependency>
 
 		<!-- <dependency> -->
 		<!-- <groupId>com.atu.recorder</groupId> -->

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.android.ddmlib.AndroidDebugBridge;
 import com.github.xsavikx.androidscreencast.Main;
 import com.web.app.automation.config.Configuration;
 import com.web.app.automation.controller.AndroidController;
@@ -16,6 +17,7 @@ import com.web.app.automation.interfaces.VideoService.serviceType;
 import com.web.app.automation.log.LogLevel;
 import com.web.app.automation.log.Logger;
 
+import net.srcz.android.screencast.client.ScreenCastClientMain;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
 import se.vidstige.jadb.RemoteFile;
@@ -40,7 +42,7 @@ public class VideoWorkerThread extends Thread {
 					 * Note: Waiting on the process to gracefully complete
 					 * itself, else the video written will be corrupted
 					 */
-					startVideoRecording().waitFor(2,TimeUnit.MINUTES);
+					startVideoRecording().waitFor(2, TimeUnit.MINUTES);
 					DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd-HH-mm-ss");
 					Date date = new Date();
 					JadbConnection jadb = new JadbConnection();
@@ -50,7 +52,7 @@ public class VideoWorkerThread extends Thread {
 								Configuration.VIDEO_OUTPUT_DIR + "testvideo-" + dateFormat.format(date) + ".mp4"));
 					}
 				} else if (type == serviceType.STREAMING) {
-					startVideoStreaming().waitFor(2,TimeUnit.MINUTES);
+					startVideoStreaming().waitFor(2, TimeUnit.MINUTES);
 				}
 
 				shutdownADBShellService(type);
@@ -82,6 +84,8 @@ public class VideoWorkerThread extends Thread {
 	public Process startVideoStreaming() throws IOException {
 		Logger.write("start streaming video ", LogLevel.INFO);
 		Main.startScreenCast(null);
+		//ScreenCastClientMain.startAgent("debug", "8700");
+
 		// String command = "sh echo `adb shell screenrecord
 		// --output-format=h264 - | ffplay -`";
 		String command = "sh " + Configuration.VIDEO_STREAMING_SCRIPT;
