@@ -15,10 +15,10 @@
 	</properties>
 
 	<repositories>
-		<!-- <repository> -->
-		<!-- <id>local-mvn-repo</id> -->
-		<!-- <url>file://${basedir}/local-mvn-repo</url> -->
-		<!-- </repository> -->
+		<repository>
+			<id>mvn-repo</id>
+			<url>file://${project.basedir}/mvn-repo</url>
+		</repository>
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
@@ -56,6 +56,13 @@
 			<artifactId>jetty-util</artifactId>
 			<version>6.1.26</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.xsavikx</groupId>
+			<artifactId>androidscreencast</artifactId>
+			<version>0.0.7s</version>
+			<!-- <scope>system</scope> <systemPath>/Users/VVenkatesh/.m2/repository/com/github/xsavikx/androidscreencast/0.0.7s/androidscreencast-0.0.7s.jar</systemPath> -->
+		</dependency>
+
 		<!-- <dependency> -->
 		<!-- <groupId>com.atu.recorder</groupId> -->
 		<!-- <artifactId>atu-recorder</artifactId> -->

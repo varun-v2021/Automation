@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import com.github.xsavikx.androidscreencast.Main;
 import com.web.app.automation.config.Configuration;
 import com.web.app.automation.controller.AndroidController;
 import com.web.app.automation.interfaces.VideoService;
@@ -78,8 +79,9 @@ public class VideoWorkerThread extends Thread {
 		}
 	}
 
-	public Process startVideoStreaming() {
+	public Process startVideoStreaming() throws IOException {
 		Logger.write("start streaming video ", LogLevel.INFO);
+		Main.startScreenCast(null);
 		// String command = "sh echo `adb shell screenrecord
 		// --output-format=h264 - | ffplay -`";
 		String command = "sh " + Configuration.VIDEO_STREAMING_SCRIPT;
