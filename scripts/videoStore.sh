@@ -1,0 +1,1 @@
+echo `adb pull /sdcard/testvideo.mp4 /Users/VVenkatesh/current/Automation/videos/testvideo.mp4`
