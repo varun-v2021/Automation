@@ -1,5 +1,6 @@
 package com.web.app.automation.config;
 
+import java.util.HashMap;
 import com.web.app.automation.utilities.PropertiesUtility;
 
 public class Configuration {

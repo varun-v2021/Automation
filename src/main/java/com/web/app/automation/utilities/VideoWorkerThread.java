@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import com.android.ddmlib.AndroidDebugBridge;
 import com.github.xsavikx.androidscreencast.Main;
 import com.web.app.automation.config.Configuration;
 import com.web.app.automation.controller.AndroidController;
@@ -16,8 +15,6 @@ import com.web.app.automation.interfaces.VideoService;
 import com.web.app.automation.interfaces.VideoService.serviceType;
 import com.web.app.automation.log.LogLevel;
 import com.web.app.automation.log.Logger;
-
-import net.srcz.android.screencast.client.ScreenCastClientMain;
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
 import se.vidstige.jadb.RemoteFile;

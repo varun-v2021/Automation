@@ -11,23 +11,24 @@ import com.web.app.automation.log.Logger;
 import io.appium.java_client.AppiumDriver;
 
 public class ControllerFactory {
-    private AppiumDriver<WebElement> driver;
+	private AppiumDriver<WebElement> driver;
 
-    public AppiumDriver<WebElement> getController() {
-        try {
-            if (CoreController.getPlatform() == Configuration.platformType.ANDROID) {
-                Logger.write("obtaining android controller instance from factory", LogLevel.INFO);
-                AndroidController aController = AndroidController.getInstance();
-                driver = aController.getDriver();
-            } else if (CoreController.getPlatform() == Configuration.platformType.IOS) {
-                Logger.write("obtaining ios controller instance from factory", LogLevel.INFO);
-                IOSController iController = IOSController.getInstance();
-                driver = iController.getDriver();
-            }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return driver;
-    }
+	public AppiumDriver<WebElement> getController() {
+		try {
+			if (CoreController.getPlatform() == Configuration.platformType.ANDROID) {
+				Logger.write("obtaining android controller instance from factory", LogLevel.INFO);
+				AndroidController aController = AndroidController.getInstance();
+				driver = aController.getDriver();
+				Logger.write("Controller instance created successfully", LogLevel.INFO);
+			} else if (CoreController.getPlatform() == Configuration.platformType.IOS) {
+				Logger.write("obtaining ios controller instance from factory", LogLevel.INFO);
+				IOSController iController = IOSController.getInstance();
+				driver = iController.getDriver();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return driver;
+	}
 }
